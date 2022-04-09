@@ -1,15 +1,33 @@
 {
   "name": "race-tv-multiplayer",
   "version": "1.0.0",
-  "description": "Race TV Multiplayer",
+  "description": "Race TV Multiplayer allows you to F1TV via multiple screens",
+  "author": "Wessel Kroos",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WesselKroos/race-tv-multiplayer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/WesselKroos/race-tv-multiplayer/issues"
+  },
+  "homepage": "https://github.com/WesselKroos/race-tv-multiplayer#readme",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "app:dir": "electron-builder --dir",
+    "app:dist": "electron-builder"
   },
-  "author": "Wessel Kroos",
-  "license": "ISC",
   "devDependencies": {
-    "electron": "github:castlabs/electron-releases#v18.0.0+wvcus"
+    "electron": "github:castlabs/electron-releases#v18.0.0+wvcus",
+    "electron-builder": "^22.14.13"
+  },
+  "build": {
+    "appId": "race.tv.multiplayer",
+    "icon": "icon-512x512.png",
+    "productName": "Race TV Multiplayer",
+    "electronDownload": {
+      "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
+    }
   }
 }
