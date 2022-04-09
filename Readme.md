@@ -6,7 +6,7 @@ __This app is unofficial and is not associated in any way with the Formula 1 com
 
 
 # Installation (Windows)
-1. Download the latest version and execute the installer: [Download the Latest version]()
+1. Download and execute the installer: [Download the Race TV Multiplayer installer](https://github.com/WesselKroos/race-tv-multiplayer/releases/download/1.0.0/Race.TV.Multiplayer.Setup.1.0.0.exe)
 
 
 # For developers (Windows)
