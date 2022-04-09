@@ -1,0 +1,15 @@
+{
+  "name": "racetv-multiplayer",
+  "version": "1.0.0",
+  "description": "Race TV Multiplayer",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Wessel Kroos",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^18.0.3"
+  }
+}

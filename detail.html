@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'"> -->
+    <title>Race TV Multiplayer</title>
+    <link rel="stylesheet" href="detail.css">
+  </head>
+  <body>
+    <nav>
+      <div id="title-bar">Video player</div>
+      <button id="close-btn">X</button>
+    </nav>
+    <webview id="webview" partition="persist:f1tv" src="about:blank" preload="detail-content.js"></webview>
+  </body>
+  <script src="detail.js"></script>
+</html>

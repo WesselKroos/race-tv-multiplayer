@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'"> -->
+    <title>Race TV Multiplayer</title>
+    <link rel="stylesheet" href="home.css">
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li>
+          <button id="back-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="26" fill="currentColor" viewBox="0 0 10 16">
+              <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+            </svg>
+          </button>
+        </li>
+        <li>
+          <button id="forward-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="26" fill="currentColor" viewBox="0 0 10 16">
+              <path transform="translate(-6 0)" fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+            </svg>
+          </button>
+        </li>
+        <li>
+          <button id="reload-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 1000 1000">
+              <path d="M843,157C757.2,65.1,634.7,10,500,10C230.5,10,10,230.5,10,500c0,269.5,220.5,490,490,490c226.6,0,416.5-159.3,471.6-367.5H843c-49,140.9-183.8,245-343,245c-202.1,0-367.5-165.4-367.5-367.5c0-202.1,165.4-367.5,367.5-367.5c104.1,0,189.9,42.9,257.2,110.2l-196,196H990V10L843,157z"/>
+            </svg>
+          </button>
+        </li>
+      </ul>
+      <div id="url-bar" tabindex="0"><span id="url-bar-protocol"></span><span id="url-bar-host"></span><span id="url-bar-path"></span></div>
+    </nav>
+    <webview id="webview" src="about:blank" partition="persist:f1tv"></webview>
+  </body>
+  <script src="home.js"></script>
+</html>
