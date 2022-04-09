@@ -113,7 +113,8 @@ ipcMain.handle('video-ipc', (event, videoUrl, referrer) => {
     webPreferences: {
       contextIsolation: false,
       nodeIntegration: true,
-      webviewTag: true
+      webviewTag: true,
+      plugins: true
     }
   }
 

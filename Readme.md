@@ -14,6 +14,12 @@ __This app is unofficial and is not associated in any way with the Formula 1 com
 ## Installation
 1. Install the LTS version of Node: [Node (LTS)](https://nodejs.org/)
 2. Run in a cmd window: `npm install`
+#### Optional steps for DRM support (Required to play streams with Widevine DRM)
+3. Install python 3: [Python 3](https://www.python.org/downloads/)
+4. Install the castlabs-evs package for Python: `python -m pip install --upgrade castlabs-evs`
+5. Sign up for an EVS account: `python -m castlabs_evs.account signup`
+6. For DRM support while develping, sign the electron.exe file: `python -m castlabs_evs.vmp sign-pkg node_modules/electron/dist`
+7. For more info about EVS: https://github.com/castlabs/electron-releases/wiki/EVS
 
 ## Start the app
 1. run in a cmd window: `npm start`
