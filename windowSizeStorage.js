@@ -7,7 +7,7 @@ const getSavedBounds = (name) => {
     const bounds = JSON.parse(data)
     return bounds
   } catch(ex) {
-    console.warn(ex)
+    console.warn(ex.message)
   }
   return null
 }

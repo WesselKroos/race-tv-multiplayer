@@ -1,59 +1,55 @@
-const { app, BrowserWindow, screen, ipcMain, nativeImage, session, ipcRenderer, globalShortcut } = require('electron')
+const { app, BrowserWindow, screen, ipcMain, nativeImage, session, ipcRenderer, globalShortcut, components } = require('electron')
 const path = require('path')
 const https = require('https')
 const { restoreWindowSize, trackWindowSize } = require('./windowSizeStorage')
 
-// You have to pass the directory that contains widevine library here, it is
-// * `libwidevinecdm.dylib` on macOS,
-// * `widevinecdm.dll` on Windows.
-app.commandLine.appendSwitch('widevine-cdm-path', 'C:/Program Files (x86)/Google/Chrome/Application/100.0.4896.75/WidevineCdm/_platform_specific/win_x64/widevinecdm.dll')
-// The version of plugin can be got from `chrome://components` page in Chrome.
-app.commandLine.appendSwitch('widevine-cdm-version', '4.10.2449.0')
-
 const icon = nativeImage.createFromPath('favicon-32x32.png')
 const useragent = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36'
+
 let win;
-
-// Open app
 app.whenReady().then(() => {
-  const display = screen.getPrimaryDisplay()
-  const displaySize = display.workAreaSize
-  const options = {
-    x: 0,
-    y: 0,
-    width: Math.floor(displaySize.width / 2),
-    height: displaySize.height,
-    darkTheme: true,
-    backgroundColor: '#222',
-    opacity: 0,
-    icon,
-    webPreferences: {
-      contextIsolation: false,
-      nodeIntegration: true,
-      webviewTag: true,
-      plugins: true
+  components.whenReady().then(() => {
+
+    // Open app
+    const display = screen.getPrimaryDisplay()
+    const displaySize = display.workAreaSize
+    const options = {
+      x: 0,
+      y: 0,
+      width: Math.floor(displaySize.width / 2),
+      height: displaySize.height,
+      darkTheme: true,
+      backgroundColor: '#222',
+      opacity: 0,
+      icon,
+      webPreferences: {
+        contextIsolation: false,
+        nodeIntegration: true,
+        webviewTag: true,
+        plugins: true
+      }
     }
-  }
-  restoreWindowSize('home', options)
-  win = new BrowserWindow(options)
-  win.setMenuBarVisibility(false)
-  trackWindowSize(win, 'home')
+    restoreWindowSize('home', options)
+    win = new BrowserWindow(options)
+    win.setMenuBarVisibility(false)
+    trackWindowSize(win, 'home')
 
-  const readyToShow = () => {
-    win.off('ready-to-show', readyToShow)
-    win.webContents.send('useragent', useragent)
-    win.focus()
-    setTimeout(() => {
-      win.setOpacity(1)
-    }, 200)
-  }
-  win.on('ready-to-show', readyToShow)
+    const readyToShow = () => {
+      win.off('ready-to-show', readyToShow)
+      win.webContents.send('useragent', useragent)
+      win.focus()
+      setTimeout(() => {
+        win.setOpacity(1)
+      }, 200)
+    }
+    win.on('ready-to-show', readyToShow)
 
-  win.loadFile('home.html')
+    win.loadFile('home.html')
 
-  // Open a window if none are open (macOS)
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+    // Open a window if none are open (macOS)
+    app.on('activate', () => {
+      if (BrowserWindow.getAllWindows().length === 0) createWindow()
+    })
   })
 })
 

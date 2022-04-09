@@ -44,12 +44,8 @@ webview.addEventListener('did-navigate-in-page', event => {
   if(event.url.startsWith('https://f1tv.formula1.com/detail/')) {
     const referrer = currentUrl
     
-    // setTimeout(() => {
-    //   webview.goBack()
-    // }, 5000)
-    // setTimeout(() => {
-    //   ipcRenderer.invoke('video-ipc', event.url, referrer)
-    // }, 10000)
+    webview.goBack()
+    ipcRenderer.invoke('video-ipc', event.url, referrer)
   }
   currentUrl = event.url
 })
@@ -58,8 +54,7 @@ let webviewReady = false
 const loadWebview = () => {
   if(!webviewReady || !history.state || !history.state.useragent) return
   webview.setUserAgent(history.state.useragent)
-  webview.loadURL('https://bitmovin.com/demos/drm')
-  // webview.loadURL('https://f1tv.formula1.com')
+  webview.loadURL('https://f1tv.formula1.com')
 }
 ipcRenderer.on('useragent', (event, useragent) => {
   history.replaceState({ ...history.state, useragent }, '')

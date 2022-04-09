@@ -1,5 +1,5 @@
 {
-  "name": "racetv-multiplayer",
+  "name": "race-tv-multiplayer",
   "version": "1.0.0",
   "description": "Race TV Multiplayer",
   "main": "main.js",
@@ -10,6 +10,6 @@
   "author": "Wessel Kroos",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^18.0.3"
+    "electron": "github:castlabs/electron-releases#v18.0.0+wvcus"
   }
 }
