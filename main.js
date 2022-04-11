@@ -2,6 +2,7 @@ const { app, BrowserWindow, screen, ipcMain, nativeImage, session, ipcRenderer, 
 const path = require('path')
 const https = require('https')
 const { restoreWindowSize, trackWindowSize } = require('./windowSizeStorage')
+const { flushPendingSettings, getSetting, setSetting } = require('./settings')
 
 const icon = nativeImage.createFromPath('favicon-32x32.png')
 const useragent = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36'
@@ -54,7 +55,12 @@ app.whenReady().then(() => {
 })
 
 // Close app
-app.on('window-all-closed', () => {
+app.on('window-all-closed', async () => {
+  try {
+    await flushPendingSettings()
+  } catch(error) {
+    console.error(error)
+  }
   if (process.platform !== 'darwin') app.quit()
 })
 
@@ -141,12 +147,14 @@ ipcMain.handle('video-ipc', (event, videoUrl, referrer) => {
       win.setOpacity(1)
     }, 200)
 
+    const settings = getSetting(`window.${windowName}`)
     const [ noActionVideoUrl ] = videoUrl.split('?')
     win.webContents.send('state', {
       useragent,
       videoId: videoWindows.indexOf(videoWindow),
       videoUrl: `${noActionVideoUrl}?action=play`,
-      referrer
+      referrer,
+      settings
     })
   }
   win.on('ready-to-show', readyToShow)
@@ -156,6 +164,9 @@ ipcMain.handle('video-ipc', (event, videoUrl, referrer) => {
   })
 
   win.loadFile('detail.html')
+})
+ipcMain.handle('save-player-settings', (event, videoId, playerSettings) => {
+  setSetting(`window.video.${videoId}.player`, playerSettings)
 })
 ipcMain.handle('video-close-ipc', (event, videoId) => {
   videoWindows[videoId]?.win?.close()

@@ -45,6 +45,15 @@ const loadWebview = () => {
   if(!webviewReady || !history.state?.videoUrl || !history.state?.useragent) return
   webview.setUserAgent(history.state.useragent)
   webview.loadURL(history.state.videoUrl)
+
+  const onDomReady = () => {
+    webview.contentWindow.postMessage({ 
+      type: 'state', 
+      state: history.state
+    }, '*')
+  }
+  webview.addEventListener('dom-ready', onDomReady)
+  
 }
 
 const onDomReady = () => {
@@ -54,8 +63,8 @@ const onDomReady = () => {
 }
 webview.addEventListener('dom-ready', onDomReady)
 
-ipcRenderer.on('state', (event, { useragent, videoId, videoUrl, referrer }) => {
-  history.replaceState({ ...history.state, useragent, videoId, videoUrl, referrer }, '')
+ipcRenderer.on('state', (event, state) => {
+  history.replaceState({ ...history.state, ...state }, '')
   loadWebview()
 })
 
