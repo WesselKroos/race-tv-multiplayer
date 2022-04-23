@@ -31,6 +31,7 @@ const saveBounds = (window, windowName) => {
 }
 
 const trackWindowSize = (window, windowName) => {
+  saveBounds(window, windowName)
   window.on('resize', () => saveBounds(window, windowName))
   window.on('move', () => saveBounds(window, windowName))
 }
