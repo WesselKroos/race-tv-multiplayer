@@ -3,7 +3,7 @@ const path = require('path')
 const https = require('https')
 const { restoreWindowSize, trackWindowSize } = require('./windowSizeStorage')
 const { flushPendingSettings, getSetting, setSetting } = require('./settings')
-const electronLocalshortcut = require('electron-localshortcut')
+const { registerHotkeyListeners } = require('./lib/window/hotkeys')
 
 const icon = nativeImage.createFromPath('favicon-32x32.png')
 const useragent = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36'
@@ -53,12 +53,7 @@ app.whenReady().then(() => {
       if (BrowserWindow.getAllWindows().length === 0) createWindow()
     })
 
-    electronLocalshortcut.register(win, ['F5'], () => {
-      win.webContents.send('reload')
-    })
-    electronLocalshortcut.register(win, ['F12'], () => {
-      win.webContents.send('openDevTools')
-    })
+    registerHotkeyListeners(win)
   })
 })
 
@@ -173,12 +168,7 @@ ipcMain.handle('video-ipc', (event, videoUrl, referrer) => {
 
   win.loadFile('detail.html')
 
-  electronLocalshortcut.register(win, ['F5'], () => {
-    win.webContents.send('reload')
-  })
-  electronLocalshortcut.register(win, ['F12'], () => {
-    win.webContents.send('openDevTools')
-  })
+  registerHotkeyListeners(win)
 })
 
 ipcMain.handle('save-player-settings', (event, videoId, playerSettings) => {

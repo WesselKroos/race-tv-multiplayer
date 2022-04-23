@@ -1,4 +1,5 @@
 const { ipcRenderer } = require('electron')
+const { handleHotkeyListeners } = require('./lib/window/hotkeys')
 
 const webview = document.querySelector('#webview')
 
@@ -12,13 +13,7 @@ document.querySelector('#reload-btn').addEventListener('click' , () => {
   webview.reloadIgnoringCache()
 })
 
-ipcRenderer.on('openDevTools', () => {
-  webview.openDevTools()
-})
-
-ipcRenderer.on('reload', () => {
-  webview.reloadIgnoringCache()
-})
+handleHotkeyListeners(ipcRenderer, webview)
 
 const urlBar = document.querySelector('#url-bar')
 urlBar.addEventListener('focus', () => {

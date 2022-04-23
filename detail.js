@@ -1,15 +1,12 @@
 const { ipcRenderer } = require('electron')
+const { handleHotkeyListeners } = require('./lib/window/hotkeys')
 
 document.querySelector('#close-btn').addEventListener('click' , () => {
   if(!history.state || history.state.videoId === undefined) return
-  ipcRenderer.invoke('video-close-ipc', history.state.videoId)
-
-ipcRenderer.on('reload', () => {
-  webview.reloadIgnoringCache()
+  ipcRenderer.invoke('close-video', history.state.videoId)
 })
 
-ipcRenderer.on('openDevTools', () => {
-  webview.openDevTools()
+handleHotkeyListeners(ipcRenderer, webview)
 })
 // Auto-hide navBar
 let hideNavBarTimeout
