@@ -1,4 +1,5 @@
 const { ipcRenderer } = require('electron')
+const { registerPreloadHotkeyListeners } = require('./lib/window/hotkeys')
 
 const waitForDomElement = (check, containerSelector, callback) => {
   if (check()) {
@@ -107,6 +108,11 @@ window.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('message', (e) => {
   if(e.data.type !== 'state') return
 
-  videoId = e.data.state.videoId
-  playerSettings = e.data.state.settings?.player
+  if(!videoId)
+    registerPreloadHotkeyListeners(window, ipcRenderer, e.data.videoId)
+
+  videoId = e.data.videoId
+  isSynced = e.data.isSynced
+  playerSettings = e.data.settings?.player
+
 })

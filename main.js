@@ -3,7 +3,7 @@ const path = require('path')
 const https = require('https')
 const { restoreWindowSize, trackWindowSize } = require('./windowSizeStorage')
 const { flushPendingSettings, getSetting, setSetting } = require('./settings')
-const { registerHotkeyListeners } = require('./lib/window/hotkeys')
+const { registerBrowserWindowHotkeyListeners, registerVideoWindowHotkeyListeners } = require('./lib/window/hotkeys')
 
 const icon = nativeImage.createFromPath('favicon-32x32.png')
 const useragent = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36'
@@ -53,7 +53,7 @@ app.whenReady().then(() => {
       if (BrowserWindow.getAllWindows().length === 0) createWindow()
     })
 
-    registerHotkeyListeners(win)
+    registerBrowserWindowHotkeyListeners(win)
   })
 })
 
@@ -100,6 +100,7 @@ app.on('window-all-closed', async () => {
 
 // Download and display favicon
 const videoWindows = []
+registerVideoWindowHotkeyListeners(ipcMain, videoWindows)
 ipcMain.handle('video-ipc', (event, videoUrl, referrer) => {
   let windowIndex = videoWindows.findIndex(vw => vw === null)
   windowIndex = (windowIndex === -1) ? videoWindows.length : windowIndex
@@ -167,8 +168,6 @@ ipcMain.handle('video-ipc', (event, videoUrl, referrer) => {
   })
 
   win.loadFile('detail.html')
-
-  registerHotkeyListeners(win)
 })
 
 ipcMain.handle('save-player-settings', (event, videoId, playerSettings) => {
