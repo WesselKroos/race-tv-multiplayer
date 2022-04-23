@@ -20,7 +20,8 @@
   },
   "devDependencies": {
     "electron": "github:castlabs/electron-releases#v18.0.0+wvcus",
-    "electron-builder": "^22.14.13"
+    "electron-builder": "^22.14.13",
+    "electron-localshortcut": "^3.2.1"
   },
   "build": {
     "appId": "race.tv.multiplayer",

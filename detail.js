@@ -3,8 +3,14 @@ const { ipcRenderer } = require('electron')
 document.querySelector('#close-btn').addEventListener('click' , () => {
   if(!history.state || history.state.videoId === undefined) return
   ipcRenderer.invoke('video-close-ipc', history.state.videoId)
+
+ipcRenderer.on('reload', () => {
+  webview.reloadIgnoringCache()
 })
 
+ipcRenderer.on('openDevTools', () => {
+  webview.openDevTools()
+})
 // Auto-hide navBar
 let hideNavBarTimeout
 const hideNavBar = () => {

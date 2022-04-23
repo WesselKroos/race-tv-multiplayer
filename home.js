@@ -12,6 +12,14 @@ document.querySelector('#reload-btn').addEventListener('click' , () => {
   webview.reloadIgnoringCache()
 })
 
+ipcRenderer.on('openDevTools', () => {
+  webview.openDevTools()
+})
+
+ipcRenderer.on('reload', () => {
+  webview.reloadIgnoringCache()
+})
+
 const urlBar = document.querySelector('#url-bar')
 urlBar.addEventListener('focus', () => {
   document.execCommand('selectAll', false, null)
